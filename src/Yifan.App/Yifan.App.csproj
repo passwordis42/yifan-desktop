@@ -19,6 +19,7 @@
     <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
     <StartupObject>Yifan.Program</StartupObject>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <AppendPlatformToOutputPath>false</AppendPlatformToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>

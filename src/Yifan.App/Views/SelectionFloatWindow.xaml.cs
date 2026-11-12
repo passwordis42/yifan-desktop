@@ -38,6 +38,7 @@ public sealed partial class SelectionFloatWindow : Window
     public SelectionFloatWindow()
     {
         InitializeComponent();
+        BrandIcon.Apply(BrandMark);
         var presenter = OverlappedPresenter.Create();
         presenter.IsResizable = false;
         presenter.IsMaximizable = false;

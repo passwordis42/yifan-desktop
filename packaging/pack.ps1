@@ -15,7 +15,18 @@ dotnet publish .\src\Yifan.App\Yifan.App.csproj `
   -p:PublishReadyToRun=false
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-$publish = Join-Path $root "src\Yifan.App\bin\Release\net8.0-windows10.0.19041.0\win-x64\publish"
+$publishCandidates = @(
+  (Join-Path $root "src\Yifan.App\bin\Release\net8.0-windows10.0.19041.0\win-x64\publish"),
+  (Join-Path $root "src\Yifan.App\bin\x64\Release\net8.0-windows10.0.19041.0\win-x64\publish")
+)
+$publish = $publishCandidates | Where-Object { Test-Path (Join-Path $_ "Yifan.exe") } | Select-Object -First 1
+if (-not $publish) {
+  $found = Get-ChildItem -Path (Join-Path $root "src\Yifan.App\bin") -Recurse -Filter Yifan.exe -ErrorAction SilentlyContinue |
+    Where-Object { $_.FullName -match '\\publish\\' } |
+    Select-Object -First 1
+  if (-not $found) { throw "找不到发布目录里的 Yifan.exe" }
+  $publish = $found.DirectoryName
+}
 $dist = Join-Path $root "dist"
 New-Item -ItemType Directory -Force -Path $dist | Out-Null
 $zip = Join-Path $dist "Yifan-0.1.0-win-x64.zip"

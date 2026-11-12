@@ -20,7 +20,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Border Width="18" Height="18" CornerRadius="4" Background="#C42B1C" />
+                    <Image x:Name="BrandMark" Width="22" Height="22" Stretch="Uniform" />
                     <TextBlock Grid.Column="1" Text="截图识译" FontWeight="SemiBold" VerticalAlignment="Center" />
                     <StackPanel x:Name="FontTools" Grid.Column="2" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
                         <Button x:Name="Smaller" Content="A−" Click="Smaller_Click" Padding="6,0" MinWidth="28" />

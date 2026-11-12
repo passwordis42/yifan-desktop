@@ -33,6 +33,7 @@ public sealed partial class OcrResultWindow : Window
     public OcrResultWindow()
     {
         InitializeComponent();
+        BrandIcon.Apply(BrandMark);
         var presenter = OverlappedPresenter.Create();
         presenter.IsResizable = false;
         presenter.IsMaximizable = false;

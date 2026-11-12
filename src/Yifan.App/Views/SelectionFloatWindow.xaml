@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Border Width="16" Height="16" CornerRadius="4" Background="#C42B1C" />
+                <Image x:Name="BrandMark" Width="16" Height="16" Stretch="Uniform" />
                 <TextBlock Grid.Column="1" Text="一翻 · 划词" FontWeight="SemiBold" VerticalAlignment="Center" Foreground="#2C2A26" />
                 <TextBlock Grid.Column="2" Text="拖动" FontSize="11" Foreground="#9A9488" VerticalAlignment="Center" />
                 <Button x:Name="ZoomButton" Grid.Column="3" Content="放大" Click="Zoom_Click" Padding="8,2" MinWidth="0" />
