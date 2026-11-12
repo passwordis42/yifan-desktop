@@ -1,0 +1,169 @@
+<UserControl
+    x:Class="Yifan.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer Padding="28,22,28,24">
+        <StackPanel Spacing="12">
+            <TextBlock Text="设置" FontSize="28" FontWeight="SemiBold" Foreground="#2C2A26" />
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="12">
+                    <Border Style="{StaticResource CardBorder}">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="厂商与 API" FontWeight="SemiBold" Foreground="#2C2A26" />
+                            <TextBlock Text="五家 Key 分别保存，互不覆盖" FontSize="12" Foreground="#6F6A60" />
+                            <TextBlock Text="当前厂商" FontSize="12" Foreground="#6F6A60" />
+                            <ComboBox x:Name="ProviderBox" HorizontalAlignment="Stretch" SelectionChanged="ProviderBox_SelectionChanged" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="API Key" FontSize="12" Foreground="#6F6A60" />
+                                <TextBlock x:Name="KeyHint" Grid.Column="1" FontSize="12" Foreground="#6F6A60" />
+                            </Grid>
+                            <PasswordBox x:Name="KeyBox" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="ModelLabel" Text="模型" FontSize="12" Foreground="#6F6A60" />
+                                <TextBlock x:Name="ModelHint" Grid.Column="1" FontSize="12" Foreground="#6F6A60" />
+                            </Grid>
+                            <ComboBox x:Name="ModelBox" HorizontalAlignment="Stretch" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="CustomLabel" FontSize="12" Foreground="#6F6A60" />
+                                <TextBlock x:Name="CustomHint" Grid.Column="1" FontSize="12" Foreground="#6F6A60" />
+                            </Grid>
+                            <TextBox x:Name="CustomBox" />
+                            <TextBlock x:Name="VolcanoNote" TextWrapping="Wrap" FontSize="12" Foreground="#6F6A60"
+                                       Text="火山引擎填方舟接入点，例如 ep-…。本版不收云厂商 AK/SK，也没有自定义 Base URL。" />
+                            <Border Background="#FFFAEB" BorderBrush="#FEDF89" BorderThickness="1" CornerRadius="10" Padding="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock x:Name="QuotaMain" TextWrapping="Wrap" FontWeight="SemiBold" Foreground="#2C2A26" />
+                                        <TextBlock x:Name="QuotaSub" TextWrapping="Wrap" FontSize="12" Foreground="#6F6A60" />
+                                    </StackPanel>
+                                    <Border Grid.Column="1" Background="#FFFAEB" BorderBrush="#FEDF89" BorderThickness="1" CornerRadius="8" Padding="8,2" VerticalAlignment="Center">
+                                        <TextBlock x:Name="QuotaBadge" Foreground="#B54708" FontWeight="Bold" FontSize="12" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="TestButton" Style="{StaticResource QuietButton}" Content="测试连接" Click="TestButton_Click" />
+                        <Button Style="{StaticResource PrimaryButton}" Content="保存" Click="SaveButton_Click" />
+                    </StackPanel>
+                    <TextBlock x:Name="Status" TextWrapping="Wrap" FontSize="12" Foreground="#B42318" />
+                    <Border Style="{StaticResource CardBorder}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="开机启动" FontWeight="SemiBold" Foreground="#2C2A26" />
+                                <TextBlock Text="登录 Windows 后在托盘静默启动。默认关闭。" FontSize="12" Foreground="#6F6A60" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <ToggleSwitch x:Name="StartupSwitch" Grid.Column="1" OffContent="" OnContent="" Toggled="StartupSwitch_Toggled" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Spacing="12">
+                    <Border Style="{StaticResource CardBorder}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="语言" FontWeight="SemiBold" Foreground="#2C2A26" />
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="源语言" FontSize="12" Foreground="#6F6A60" />
+                                    <ComboBox x:Name="SourceBox" HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="目标语言" FontSize="12" Foreground="#6F6A60" />
+                                    <ComboBox x:Name="TargetBox" HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource CardBorder}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="术语本" FontWeight="SemiBold" Foreground="#2C2A26" />
+                            <StackPanel x:Name="GlossaryList" Spacing="6" />
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="GlossarySource" PlaceholderText="原文" />
+                                <TextBox x:Name="GlossaryTarget" Grid.Column="1" PlaceholderText="固定译文" />
+                                <Button Grid.Column="2" Style="{StaticResource PrimaryButton}" Content="添加" Click="AddGlossary_Click" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource CardBorder}">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="快捷键" FontWeight="SemiBold" Foreground="#2C2A26" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="划词翻译" FontWeight="SemiBold" />
+                                    <TextBlock Text="默认 Alt+E" FontSize="12" Foreground="#6F6A60" />
+                                </StackPanel>
+                                <Border x:Name="SelectionKey" Grid.Column="1" Background="#EAF1FF" CornerRadius="8" Padding="8,4" Margin="8,0" VerticalAlignment="Center">
+                                    <TextBlock x:Name="SelectionKeyText" Foreground="#2F6FED" FontWeight="Bold" />
+                                </Border>
+                                <Button x:Name="SelectionRebind" Grid.Column="2" Style="{StaticResource QuietButton}" Content="改键" Click="SelectionRebind_Click" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="截图识译" FontWeight="SemiBold" />
+                                    <TextBlock Text="默认 Alt+S" FontSize="12" Foreground="#6F6A60" />
+                                </StackPanel>
+                                <Border Grid.Column="1" Background="#EAF1FF" CornerRadius="8" Padding="8,4" Margin="8,0" VerticalAlignment="Center">
+                                    <TextBlock x:Name="CropKeyText" Foreground="#2F6FED" FontWeight="Bold" />
+                                </Border>
+                                <Button x:Name="CropRebind" Grid.Column="2" Style="{StaticResource QuietButton}" Content="改键" Click="CropRebind_Click" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="HotkeyNote" TextWrapping="Wrap" FontSize="12" Foreground="#6F6A60"
+                                           Text="两条互不冲突。与系统或其他软件冲突时可改，改完立即生效。主页显示实际生效的键。" />
+                                <Button Grid.Column="1" Style="{StaticResource SoftButton}" Content="恢复默认" Click="RestoreHotkeys_Click" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

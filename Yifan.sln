@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yifan.Core", "src\Yifan.Core\Yifan.Core.csproj", "{A7B3C1D2-4E5F-6789-ABCD-111111111111}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yifan.App", "src\Yifan.App\Yifan.App.csproj", "{B8C4D2E3-5F60-789A-BCDE-222222222222}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yifan.Core.Tests", "tests\Yifan.Core.Tests\Yifan.Core.Tests.csproj", "{C9D5E3F4-6071-89AB-CDEF-333333333333}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7B3C1D2-4E5F-6789-ABCD-111111111111}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A7B3C1D2-4E5F-6789-ABCD-111111111111}.Debug|x64.Build.0 = Debug|Any CPU
+		{A7B3C1D2-4E5F-6789-ABCD-111111111111}.Release|x64.ActiveCfg = Release|Any CPU
+		{A7B3C1D2-4E5F-6789-ABCD-111111111111}.Release|x64.Build.0 = Release|Any CPU
+		{B8C4D2E3-5F60-789A-BCDE-222222222222}.Debug|x64.ActiveCfg = Debug|x64
+		{B8C4D2E3-5F60-789A-BCDE-222222222222}.Debug|x64.Build.0 = Debug|x64
+		{B8C4D2E3-5F60-789A-BCDE-222222222222}.Release|x64.ActiveCfg = Release|x64
+		{B8C4D2E3-5F60-789A-BCDE-222222222222}.Release|x64.Build.0 = Release|x64
+		{C9D5E3F4-6071-89AB-CDEF-333333333333}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C9D5E3F4-6071-89AB-CDEF-333333333333}.Debug|x64.Build.0 = Debug|Any CPU
+		{C9D5E3F4-6071-89AB-CDEF-333333333333}.Release|x64.ActiveCfg = Release|Any CPU
+		{C9D5E3F4-6071-89AB-CDEF-333333333333}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
