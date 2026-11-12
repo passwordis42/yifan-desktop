@@ -1,0 +1,85 @@
+name: QA pre-release
+
+on:
+  push:
+    branches:
+      - feat/windows-v0.1.0
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pack:
+    name: Windows pack and v0.1.0-qa
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Pack tests, publish, and zip
+        shell: pwsh
+        run: pwsh -NoProfile -ExecutionPolicy Bypass -File .\packaging\pack.ps1
+
+      - name: Upload XAML compiler output
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xaml-compiler-output
+          path: src/Yifan.App/obj/**/output.json
+          if-no-files-found: warn
+
+      - name: Publish v0.1.0-qa pre-release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $PSNativeCommandUseErrorActionPreference = $false
+          $tag = "v0.1.0-qa"
+          if ($tag -eq "v0.1.0") { throw "拒绝创建正式 v0.1.0 Release" }
+          $zip = Join-Path (Get-Location) "dist\Yifan-0.1.0-win-x64.zip"
+          if (-not (Test-Path $zip)) { throw "缺少 $zip" }
+          $sha256 = (Get-FileHash -Algorithm SHA256 -Path $zip).Hash.ToLowerInvariant()
+          $runUrl = "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
+          $download = "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/releases/download/$tag/Yifan-0.1.0-win-x64.zip"
+          $notes = @(
+            "此包只给 PR #1 做视觉 QA 和功能验收，不是正式 v0.1.0 Release。",
+            "正式发布要等医生说「批准 #1」。",
+            "",
+            "- 构建提交：$env:GITHUB_SHA",
+            "- 工作流：$runUrl",
+            "- 文件：Yifan-0.1.0-win-x64.zip",
+            "- SHA256：$sha256",
+            "",
+            "解压后运行 Yifan.exe。这是验收包，不要替医生安装。"
+          ) -join "`n"
+          Set-Content -Path dist\SHA256.txt -Value $sha256 -Encoding ascii
+          gh release view $tag --json tagName
+          $releaseExists = $LASTEXITCODE -eq 0
+          if ($releaseExists) {
+            gh release delete $tag --yes --cleanup-tag
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          gh release create $tag $zip `
+            --prerelease `
+            --target $env:GITHUB_SHA `
+            --title "一翻 v0.1.0-qa（PR #1 视觉与功能验收，非正式发布）" `
+            --notes $notes
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          @(
+            "### v0.1.0-qa",
+            "- 下载：$download",
+            "- SHA256: $sha256",
+            "- 提交：$env:GITHUB_SHA"
+          ) -join "`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8
+          Write-Host "DOWNLOAD=$download"
+          Write-Host "SHA256=$sha256"
+          Write-Host "COMMIT=$env:GITHUB_SHA"
+          Write-Host "RUN=$runUrl"

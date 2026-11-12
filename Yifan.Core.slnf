@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "Yifan.sln",
+    "projects": [
+      "src\\Yifan.Core\\Yifan.Core.csproj",
+      "tests\\Yifan.Core.Tests\\Yifan.Core.Tests.csproj"
+    ]
+  }
+}

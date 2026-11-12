@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Yifan.Core</RootNamespace>
+    <AssemblyName>Yifan.Core</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Version>0.1.0</Version>
+    <Description>一翻桌面版非界面逻辑。移植自 chrome-llm-translate v0.1.14。</Description>
+  </PropertyGroup>
+</Project>

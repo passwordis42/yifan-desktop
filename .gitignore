@@ -1,0 +1,10 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+TestResults/
+dist/
+*.zip
+.idea/
+*.DotSettings.user
