@@ -13,7 +13,16 @@ dotnet publish .\src\Yifan.App\Yifan.App.csproj `
   -p:WindowsPackageType=None `
   -p:WindowsAppSDKSelfContained=true `
   -p:PublishReadyToRun=false
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+if ($LASTEXITCODE -ne 0) {
+  $obj = Join-Path $root "src\Yifan.App\obj"
+  if (Test-Path $obj) {
+    Get-ChildItem -Path $obj -Recurse -Include output.json,input.json -ErrorAction SilentlyContinue | ForEach-Object {
+      Write-Host "===== $($_.FullName) ====="
+      Get-Content -Path $_.FullName -Raw
+    }
+  }
+  exit $LASTEXITCODE
+}
 
 $publishCandidates = @(
   (Join-Path $root "src\Yifan.App\bin\Release\net8.0-windows10.0.19041.0\win-x64\publish"),
