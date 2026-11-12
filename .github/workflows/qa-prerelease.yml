@@ -27,6 +27,14 @@ jobs:
         shell: pwsh
         run: pwsh -NoProfile -ExecutionPolicy Bypass -File .\packaging\pack.ps1
 
+      - name: Upload XAML compiler output
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xaml-compiler-output
+          path: src/Yifan.App/obj/**/output.json
+          if-no-files-found: warn
+
       - name: Publish v0.1.0-qa pre-release
         shell: pwsh
         env:

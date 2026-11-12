@@ -16,9 +16,22 @@ dotnet publish .\src\Yifan.App\Yifan.App.csproj `
 if ($LASTEXITCODE -ne 0) {
   $obj = Join-Path $root "src\Yifan.App\obj"
   if (Test-Path $obj) {
-    Get-ChildItem -Path $obj -Recurse -Include output.json,input.json -ErrorAction SilentlyContinue | ForEach-Object {
-      Write-Host "===== $($_.FullName) ====="
-      Get-Content -Path $_.FullName -Raw
+    $outputs = @(Get-ChildItem -Path $obj -Recurse -Filter output.json -ErrorAction SilentlyContinue)
+    Write-Host "output.json count: $($outputs.Count)"
+    foreach ($file in $outputs) {
+      Write-Host "OUTPUT size=$($file.Length) $($file.FullName)"
+      try {
+        $text = [System.IO.File]::ReadAllText($file.FullName)
+        $found = [regex]::Matches($text, '"(?:ErrorCode|ErrorMessage|Message|File|LineNumber)"\s*:\s*"(?:[^"\\]|\\.){0,500}"')
+        if ($found.Count -eq 0) {
+          $slice = if ($text.Length -gt 2000) { $text.Substring(0, 2000) } else { $text }
+          Write-Host $slice
+        } else {
+          $found | Select-Object -First 60 | ForEach-Object { Write-Host $_.Value }
+        }
+      } catch {
+        Write-Host $_.Exception.Message
+      }
     }
   }
   exit $LASTEXITCODE
