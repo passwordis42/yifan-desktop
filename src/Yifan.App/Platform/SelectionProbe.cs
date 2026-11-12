@@ -28,12 +28,13 @@ internal static class SelectionProbe
                 if (left is null)
                 {
                     var rects = range.GetBoundingRectangles();
-                    if (rects.Length >= 4)
+                    if (rects.Length > 0)
                     {
-                        left = rects[0];
-                        top = rects[1];
-                        right = rects[0] + rects[2];
-                        bottom = rects[1] + rects[3];
+                        var rect = rects[0];
+                        left = rect.X;
+                        top = rect.Y;
+                        right = rect.X + rect.Width;
+                        bottom = rect.Y + rect.Height;
                     }
                 }
             }

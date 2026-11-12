@@ -116,7 +116,7 @@ public sealed partial class OcrResultWindow : Window
         AddAction("复制译文", true, hasTranslation, () => CopyTranslationRequested?.Invoke());
         AddAction("关闭", false, true, Close);
         var viewport = Viewport();
-        UpdateLayout();
+        (Content as FrameworkElement)?.UpdateLayout();
         var measured = 280 + (hasSource ? 80 : 0) + (hasTranslation ? 80 : 0) + (string.IsNullOrEmpty(error) ? 0 : 72);
         _layout = _session.Open(viewport, measured);
         ApplyBox();

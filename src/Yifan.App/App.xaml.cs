@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Yifan.Logging;
+using Yifan.Platform;
 using Yifan.Services;
 
 namespace Yifan;

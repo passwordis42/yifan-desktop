@@ -62,8 +62,8 @@ public sealed partial class SettingsPage : UserControl
         ModelBox.Items.Clear();
         foreach (var tier in profile.ModelTiers)
         {
-            foreach (var model in tier.Models)
-                ModelBox.Items.Add(new ComboBoxItem { Content = model, Tag = model });
+            foreach (var modelId in tier.Models)
+                ModelBox.Items.Add(new ComboBoxItem { Content = modelId, Tag = modelId });
         }
         var model = _draftModels.TryGetValue(provider, out var drafted) ? drafted : slot.Model;
         var custom = _draftCustom.TryGetValue(provider, out var draftedCustom) ? draftedCustom : "";

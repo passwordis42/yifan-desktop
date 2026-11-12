@@ -27,6 +27,13 @@ public sealed partial class MainWindow : Window
         Closed += OnClosed;
     }
 
+    public void ReloadOpenPage()
+    {
+        Home.Reload();
+        if (SettingsPage.Visibility == Visibility.Visible)
+            SettingsPage.Reload();
+    }
+
     public void ShowPage(string page)
     {
         var home = page != "settings";

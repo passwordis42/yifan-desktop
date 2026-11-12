@@ -158,7 +158,7 @@ public sealed partial class SelectionFloatWindow : Window
     private void NoteContent()
     {
         if (_layout is null) return;
-        UpdateLayout();
+        (Content as FrameworkElement)?.UpdateLayout();
         var width = Math.Max(120, SelectionFloat.Width(Viewport().Width, _layout.Enlarged) - 36);
         SourceText.Measure(new Windows.Foundation.Size(width, 4000));
         TranslationText.Measure(new Windows.Foundation.Size(width, 4000));

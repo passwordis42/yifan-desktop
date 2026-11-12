@@ -459,10 +459,7 @@ public sealed class AppController
 
     private void RefreshSurfaces()
     {
-        if (_main is null) return;
-        _main.Home.Reload();
-        if (_main.SettingsPage.Visibility == Visibility.Visible)
-            _main.SettingsPage.Reload();
+        _main?.ReloadOpenPage();
         if (_tray is not null)
         {
             _tray.ServiceEnabled = _settings.ServiceEnabled;

@@ -16,11 +16,13 @@ public static class Program
             return;
         }
 
-        Application.Start(_ =>
-        {
-            var context = new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread());
-            SynchronizationContext.SetSynchronizationContext(context);
-            _ = new App();
-        });
+        Microsoft.UI.Xaml.Application.Start(Launch);
+    }
+
+    private static void Launch(Microsoft.UI.Xaml.ApplicationInitializationCallbackParams args)
+    {
+        var context = new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread());
+        SynchronizationContext.SetSynchronizationContext(context);
+        new global::Yifan.App();
     }
 }
